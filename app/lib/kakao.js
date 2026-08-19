@@ -21,6 +21,8 @@ async function getAccessToken() {
     client_id: process.env.KAKAO_REST_KEY,
     refresh_token: saved.refresh_token,
   });
+  // 카카오 앱에서 클라이언트 시크릿을 켜 두면 이 값도 같이 보내야 한다
+  if (process.env.KAKAO_CLIENT_SECRET) body.set('client_secret', process.env.KAKAO_CLIENT_SECRET);
   const res = await fetch('https://kauth.kakao.com/oauth/token', {
     method: 'POST',
     headers: { 'content-type': 'application/x-www-form-urlencoded;charset=utf-8' },

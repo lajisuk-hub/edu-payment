@@ -24,6 +24,7 @@ export async function GET(req) {
       redirect_uri: `${url.origin}/api/kakao/callback`,
       code,
     });
+    if (process.env.KAKAO_CLIENT_SECRET) body.set('client_secret', process.env.KAKAO_CLIENT_SECRET);
     const res = await fetch('https://kauth.kakao.com/oauth/token', {
       method: 'POST',
       headers: { 'content-type': 'application/x-www-form-urlencoded;charset=utf-8' },
