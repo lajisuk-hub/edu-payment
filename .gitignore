@@ -6,3 +6,8 @@ out
 .vercel
 .DS_Store
 *.log
+
+.vercel
+.kakao-token-path.txt
+
+.env*
