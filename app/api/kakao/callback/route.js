@@ -34,7 +34,7 @@ export async function GET(req) {
     if (!res.ok || !data.refresh_token) {
       return page('연결에 실패했어요. 다시 시도해 주세요.');
     }
-    await saveRefreshToken(data.refresh_token);
+    await saveRefreshToken(data.refresh_token, data.scope || '');
     return page('카카오톡 연결이 끝났어요! 이제 신청이 들어오면 바로 카톡으로 옵니다.');
   } catch (err) {
     return page('오류가 났어요: ' + err.message);

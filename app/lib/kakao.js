@@ -8,8 +8,12 @@ export function kakaoReady() {
   return Boolean(process.env.KAKAO_REST_KEY && TOKEN_PATH);
 }
 
-export async function saveRefreshToken(token) {
-  await saveJson(TOKEN_PATH, { refresh_token: token, savedAt: new Date().toISOString() });
+export async function saveRefreshToken(token, scope) {
+  await saveJson(TOKEN_PATH, {
+    refresh_token: token,
+    scope: scope || '',
+    savedAt: new Date().toISOString(),
+  });
 }
 
 async function getAccessToken() {
@@ -34,7 +38,7 @@ async function getAccessToken() {
   }
   // 새 갱신열쇠를 주면 갈아끼운다 (그래야 계속 쓸 수 있다)
   if (data.refresh_token && data.refresh_token !== saved.refresh_token) {
-    await saveRefreshToken(data.refresh_token);
+    await saveRefreshToken(data.refresh_token, saved.scope);
   }
   return data.access_token;
 }
