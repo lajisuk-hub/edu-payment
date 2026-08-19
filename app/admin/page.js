@@ -334,6 +334,13 @@ export default function AdminPage() {
         <a className="btn mt14" href="/api/kakao/login" style={{ display: 'block', textAlign: 'center', textDecoration: 'none' }}>
           카카오톡 연결하기
         </a>
+        <button className="btn ghost mt14" style={{ width: '100%' }} onClick={async () => {
+          const res = await fetch(`/api/kakao/test?key=${PASSWORD}`);
+          const data = await res.json();
+          alert(res.ok ? '보냈어요! 카카오톡 나와의 채팅을 확인해 보세요.' : '아직 안 돼요: ' + data.error);
+        }}>
+          시험 삼아 카톡 한 통 보내기
+        </button>
       </div>
 
       <p className="tiny-note center">비밀번호 1234 · 이 화면은 원장님만 쓰세요.</p>
